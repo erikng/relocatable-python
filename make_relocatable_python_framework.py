@@ -90,8 +90,6 @@ def main():
 
     if framework_path:
         files_relocatablized = relocatablize(framework_path)
-        if options.unsign:
-            fix_broken_signatures(files_relocatablized)
         short_version = ".".join(options.python_version.split(".")[0:2])
         install_extras(
             framework_path,
@@ -100,6 +98,8 @@ def main():
             install_wheel=options.install_wheel,
             upgrade_pip=options.upgrade_pip,
         )
+        if options.unsign:
+            fix_broken_signatures(files_relocatablized)
         if fix_other_things(framework_path, short_version):
             print()
             print("Done!")
